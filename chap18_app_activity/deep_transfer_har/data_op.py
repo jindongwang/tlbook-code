@@ -27,7 +27,7 @@ def load_27data(batch_size=100):
     train_set, test_set, val_set = DSADS27(
         data_train), DSADS27(data_test), DSADS27(data_val)
     train_loader, test_loader, val_loader = torch.utils.data.DataLoader(train_set, batch_size=batch_size, shuffle=True, drop_last=True), torch.utils.data.DataLoader(
-        test_set, batch_size=batch_size * 2, shuffle=False, drop_last=False), torch.utils.data.DataLoader(val_set, batch_size=batch_size, shuffle=False * 2, drop_last=False)
+        test_set, batch_size=batch_size * 2, shuffle=False, drop_last=False), torch.utils.data.DataLoader(val_set, batch_size=batch_size * 2, shuffle=False, drop_last=False)
     return train_loader, val_loader, test_loader
 
 

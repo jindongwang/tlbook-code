@@ -84,7 +84,7 @@ def train_da(model, loaders, optimizer, mode='ratola'):
         # train_acc = 0
         train_loss = total_loss / len(loaders[0])
         val_acc = test(model, loaders[1][1])
-        #test_acc = test(model, loaders[1][2])
+        test_acc = test(model, loaders[1][2])
         test_acc = 0
         if best_acc < val_acc:
             best_acc = val_acc
@@ -110,6 +110,7 @@ def test(model, loader, model_path=None):
             _, predicted = torch.max(pred.data, 1)
             correct += (predicted == label).sum()
     acc = float(correct) / len(loader.dataset)
+    model.train()
     return acc
 
 
