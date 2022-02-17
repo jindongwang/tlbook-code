@@ -3,7 +3,9 @@
 
 ## Usage
 
-Download the dataset at https://www.kaggle.com/jindongwang92/crossposition-activity-recognition.
+Download the dataset at https://www.kaggle.com/jindongwang92/crossposition-activity-recognition. 
+
+Or just download from our disk: `wget https://transferlearningdrive.blob.core.windows.net/teamdrive/dataset/activity/Dataset_PerCom18_STL.zip`
 
 ### Source selection and classification
 
