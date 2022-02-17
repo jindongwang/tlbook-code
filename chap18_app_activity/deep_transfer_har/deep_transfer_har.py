@@ -12,7 +12,7 @@ def get_args():
     parser.add_argument('--lr', type=float, default=.001)
     parser.add_argument('--batchsize', type=int, default=128)
     parser.add_argument('--nclass', type=int, default=19)
-    parser.add_argument('--nepochs', type=int, default=100)
+    parser.add_argument('--nepochs', type=int, default=5)
     parser.add_argument('--lamb', type=float, default=1)
     parser.add_argument('--loss', type=str, default='coral')
     parser.add_argument('--seed', type=int, default=100)
@@ -81,18 +81,23 @@ def train_da(model, loaders, optimizer, mode='ratola'):
             _, predicted = torch.max(outs.data, 1)
             correct += (predicted == ys).sum()
         train_acc = float(correct) / len(loaders[0][0].dataset)
+        # train_acc = 0
         train_loss = total_loss / len(loaders[0])
         val_acc = test(model, loaders[1][1])
         test_acc = test(model, loaders[1][2])
-        if best_acc < test_acc:
-            best_acc = test_acc
+        #test_acc = 0
+        if best_acc < val_acc:
+            best_acc = val_acc
+            torch.save(model.state_dict(), 'model2.pkl')
         print(f'Epoch: [{epoch:2d}/{args.nepochs}] loss: {train_loss:.4f}, train_acc: {train_acc:.4f}, val_acc: {val_acc:.4f}, test_acc: {test_acc:.4f}')
-    print(f'Best acc: {best_acc}')
+    acc_final = test(model, loaders[1][2], 'model.pkl')
+    print(f'Best acc: {acc_final}')
 
 
 
 def test(model, loader, model_path=None):
     if model_path:
+        print('Load model...')
         model.load_state_dict(torch.load(model_path))
     model.eval()
     correct = 0
