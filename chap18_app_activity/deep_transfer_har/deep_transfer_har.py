@@ -84,13 +84,13 @@ def train_da(model, loaders, optimizer, mode='ratola'):
         # train_acc = 0
         train_loss = total_loss / len(loaders[0])
         val_acc = test(model, loaders[1][1])
-        test_acc = test(model, loaders[1][2])
-        #test_acc = 0
+        #test_acc = test(model, loaders[1][2])
+        test_acc = 0
         if best_acc < val_acc:
             best_acc = val_acc
-            torch.save(model.state_dict(), 'model2.pkl')
+            torch.save(model.state_dict(), 'model4.pkl')
         print(f'Epoch: [{epoch:2d}/{args.nepochs}] loss: {train_loss:.4f}, train_acc: {train_acc:.4f}, val_acc: {val_acc:.4f}, test_acc: {test_acc:.4f}')
-    acc_final = test(model, loaders[1][2], 'model.pkl')
+    acc_final = test(model, loaders[1][2], 'model4.pkl')
     print(f'Best acc: {acc_final}')
 
 
