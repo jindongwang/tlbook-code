@@ -71,7 +71,6 @@ def train_da(model, loaders, optimizer, mode='ratola'):
             ft, _ = model(xt)
             loss_cls = criterion(outs, ys)
             mmd = MMD_loss(kernel_type='rbf')(fs, ft) if args.loss == 'mmd' else CORAL_loss(fs, ft)
-            # mmd = 
             loss = loss_cls + args.lamb * mmd
             optimizer.zero_grad()
             loss.backward()
@@ -81,7 +80,6 @@ def train_da(model, loaders, optimizer, mode='ratola'):
             _, predicted = torch.max(outs.data, 1)
             correct += (predicted == ys).sum()
         train_acc = float(correct) / len(loaders[0][0].dataset)
-        # train_acc = 0
         train_loss = total_loss / len(loaders[0])
         val_acc = test(model, loaders[1][1])
         test_acc = test(model, loaders[1][2])
