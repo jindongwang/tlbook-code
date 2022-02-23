@@ -6,9 +6,22 @@
 import numpy as np
 import scipy.io
 import scipy.linalg
+import os
 import sklearn.metrics
 from sklearn.neighbors import KNeighborsClassifier
 
+def load_data(folder, domain):
+    from scipy import io
+    data = io.loadmat(os.path.join(folder, domain + '_fc6.mat'))
+    return data['fts'], data['labels']
+
+
+def load_csv(folder, src_domain, tar_domain):
+    data_s = np.loadtxt(f'{folder}/amazon_{src_domain}.csv', delimiter=',')
+    data_t = np.loadtxt(f'{folder}/amazon_{tar_domain}.csv', delimiter=',')
+    Xs, Ys = data_s[:, :-1], data_s[:, -1]
+    Xt, Yt = data_t[:, :-1], data_t[:, -1]
+    return Xs, Ys, Xt, Yt
 
 def kernel(ker, X1, X2, gamma):
     K = None
@@ -58,11 +71,11 @@ class TCA:
         H = np.eye(n) - 1 / n * np.ones((n, n))
         K = kernel(self.kernel_type, X, None, gamma=self.gamma)
         n_eye = m if self.kernel_type == 'primal' else n
-        a, b = np.linalg.multi_dot([K, M, K.T]) + self.lamb * np.eye(n_eye), np.linalg.multi_dot([K, H, K.T])
+        a, b = K @ M @ K.T + self.lamb * np.eye(n_eye), K @ H @ K.T
         w, V = scipy.linalg.eig(a, b)
         ind = np.argsort(w)
         A = V[:, ind[:self.dim]]
-        Z = np.dot(A.T, K)
+        Z = A.T @ K
         Z /= np.linalg.norm(Z, axis=0)
         Xs_new, Xt_new = Z[:, :ns].T, Z[:, ns:].T
         return Xs_new, Xt_new
@@ -84,15 +97,29 @@ class TCA:
         return acc, y_pred
 
 
-if __name__ == '__main__':
-    domains = ['caltech.mat', 'amazon.mat', 'webcam.mat', 'dslr.mat']
-    for i in [2]:
-        for j in [3]:
-            if i != j:
-                src, tar = 'data/' + domains[i], 'data/' + domains[j]
-                src_domain, tar_domain = scipy.io.loadmat(src), scipy.io.loadmat(tar)
-                Xs, Ys, Xt, Yt = src_domain['feas'], src_domain['label'], tar_domain['feas'], tar_domain['label']
-                tca = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
-                acc, ypre = tca.fit_predict(Xs, Ys, Xt, Yt)
-                print(acc)
-                # It should print 0.910828025477707
+# if __name__ == '__main__':
+#     folder = '../../office31'
+#     src_domain = 'amazon'
+#     tar_domain = 'webcam'
+#     Xs, Ys = load_data(folder, src_domain)
+#     Xt, Yt = load_data(folder, tar_domain)
+#     print('Source:', src_domain, Xs.shape, Ys.shape)
+#     print('Target:', tar_domain, Xt.shape, Yt.shape)
+#     tca = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
+#     acc, ypre = tca.fit_predict(Xs, Ys, Xt, Yt)
+#     print(acc)
+#     # It should print 0.910828025477707
+
+
+if __name__ == "__main__":
+    # download the dataset here: https://www.jianguoyun.com/p/DcNAUg0QmN7PCBiF9asD (Password: qqLA7D)
+    folder = '../../office31_resnet50'
+    src_domain = 'amazon'
+    tar_domain = 'webcam'
+    Xs, Ys, Xt, Yt = load_csv(folder, src_domain, tar_domain)
+    print('Source:', src_domain, Xs.shape, Ys.shape)
+    print('Target:', tar_domain, Xt.shape, Yt.shape)
+
+    tca = TCA(kernel_type='primal', dim=40, lamb=0.1, gamma=1)
+    acc, ypre = tca.fit_predict(Xs, Ys, Xt, Yt)
+    print(acc)

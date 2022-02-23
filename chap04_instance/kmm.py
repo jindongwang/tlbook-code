@@ -16,6 +16,13 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--norm', action='store_true')
 args = parser.parse_args()
 
+def load_csv(folder, src_domain, tar_domain):
+    data_s = np.loadtxt(f'{folder}/amazon_{src_domain}.csv', delimiter=',')
+    data_t = np.loadtxt(f'{folder}/amazon_{tar_domain}.csv', delimiter=',')
+    Xs, Ys = data_s[:, :-1], data_s[:, -1]
+    Xt, Yt = data_t[:, :-1], data_t[:, -1]
+    return Xs, Ys, Xt, Yt
+
 def kernel(ker, X1, X2, gamma):
     K = None
     if ker == 'linear':
@@ -85,27 +92,42 @@ def knn_classify(Xs, Ys, Xt, Yt, k=1, norm=False):
     model.fit(Xs, Ys)
     Yt_pred = model.predict(Xt)
     acc = accuracy_score(Yt, Yt_pred)
-    print(f'Accuracy using kNN: {acc * 100:.2f}%')
+    print(f'Accuracy: {acc * 100:.2f}%')
 
+
+# if __name__ == "__main__":
+#     # download the dataset here: https://www.jianguoyun.com/p/DcNAUg0QmN7PCBiF9asD (Password: qqLA7D)
+#     folder = '/home/jindwang/mine/office31'
+#     src_domain = 'amazon'
+#     tar_domain = 'webcam'
+#     Xs, Ys = load_data(folder, src_domain)
+#     Xt, Yt = load_data(folder, tar_domain)
+#     print('Source:', src_domain, Xs.shape, Ys.shape)
+#     print('Target:', tar_domain, Xt.shape, Yt.shape)
+
+#     kmm = KMM(kernel_type='rbf', B=10)
+#     beta = kmm.fit(Xs, Xt)
+#     print(beta)
+#     print(beta.shape)
+#     Xs_new = beta * Xs
+#     knn_classify(Xs_new, Ys, Xt, Yt, k=1, norm=args.norm)
 
 if __name__ == "__main__":
     # download the dataset here: https://www.jianguoyun.com/p/DcNAUg0QmN7PCBiF9asD (Password: qqLA7D)
-    folder = '/home/jindwang/mine/office31'
+    folder = '../../office31_resnet50'
     src_domain = 'amazon'
     tar_domain = 'webcam'
-    Xs, Ys = load_data(folder, src_domain)
-    Xt, Yt = load_data(folder, tar_domain)
+    Xs, Ys, Xt, Yt = load_csv(folder, src_domain, tar_domain)
     print('Source:', src_domain, Xs.shape, Ys.shape)
     print('Target:', tar_domain, Xt.shape, Yt.shape)
 
-    kmm = KMM(kernel_type='rbf', B=10)
-    beta = kmm.fit(Xs, Xt)
-    print(beta)
-    print(beta.shape)
-    Xs_new = beta * Xs
-    knn_classify(Xs_new, Ys, Xt, Yt, k=1, norm=args.norm)
-
-
+    for b in [18]:
+        for ker in ['rbf']:
+            print(f'b: {b}, k: {ker}')
+            kmm = KMM(kernel_type=ker, B=b)
+            beta = kmm.fit(Xs, Xt)
+            Xs_new = beta * Xs
+            knn_classify(Xs_new, Ys, Xt, Yt, k=1, norm=args.norm)
 
 # if __name__ == '__main__':
 #     Xs = [[1, 2, 3], [4, 7, 4], [3, 3, 3], [4, 4, 4], [5, 5, 5], [3, 4, 5], [1, 2, 3], [4, 7, 4], [3, 3, 3], [4, 4, 4], [5, 5, 5], [3, 4, 5], [1, 2, 3], [4, 7, 4], [3, 3, 3], [4, 4, 4], [5, 5, 5], [3, 4, 5], [1, 2, 3], [4, 7, 4], [3, 3, 3], [4, 4, 4], [5, 5, 5], [3, 4, 5]]

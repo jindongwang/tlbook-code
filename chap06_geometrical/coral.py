@@ -6,10 +6,24 @@
 
 import numpy as np
 import scipy.io
+import os
 import scipy.linalg
 import sklearn.metrics
 import sklearn.neighbors
 
+
+def load_data(folder, domain):
+    from scipy import io
+    data = io.loadmat(os.path.join(folder, domain + '_fc6.mat'))
+    return data['fts'], data['labels']
+
+
+def load_csv(folder, src_domain, tar_domain):
+    data_s = np.loadtxt(f'{folder}/amazon_{src_domain}.csv', delimiter=',')
+    data_t = np.loadtxt(f'{folder}/amazon_{tar_domain}.csv', delimiter=',')
+    Xs, Ys = data_s[:, :-1], data_s[:, -1]
+    Xt, Yt = data_t[:, :-1], data_t[:, -1]
+    return Xs, Ys, Xt, Yt
 
 class CORAL:
     def __init__(self):
@@ -47,15 +61,27 @@ class CORAL:
         return acc, y_pred
 
 
-if __name__ == '__main__':
-    domains = ['caltech.mat', 'amazon.mat', 'webcam.mat', 'dslr.mat']
-    for i in range(4):
-        for j in range(4):
-            if i != j:
-                src, tar = 'data/' + domains[i], 'data/' + domains[j]
-                src_domain, tar_domain = scipy.io.loadmat(
-                    src), scipy.io.loadmat(tar)
-                Xs, Ys, Xt, Yt = src_domain['feas'], src_domain['label'], tar_domain['feas'], tar_domain['label']
-                coral = CORAL()
-                acc, ypre = coral.fit_predict(Xs, Ys, Xt, Yt)
-                print(acc)
+# if __name__ == '__main__':
+#     folder = '../../office31'
+#     src_domain = 'amazon'
+#     tar_domain = 'webcam'
+#     Xs, Ys = load_data(folder, src_domain)
+#     Xt, Yt = load_data(folder, tar_domain)
+#     print('Source:', src_domain, Xs.shape, Ys.shape)
+#     print('Target:', tar_domain, Xt.shape, Yt.shape)
+#     coral = CORAL()
+#     acc, ypre = coral.fit_predict(Xs, Ys, Xt, Yt)
+#     print(acc)
+
+
+if __name__ == "__main__":
+    # download the dataset here: https://www.jianguoyun.com/p/DcNAUg0QmN7PCBiF9asD (Password: qqLA7D)
+    folder = '../../office31_resnet50'
+    src_domain = 'amazon'
+    tar_domain = 'webcam'
+    Xs, Ys, Xt, Yt = load_csv(folder, src_domain, tar_domain)
+    print('Source:', src_domain, Xs.shape, Ys.shape)
+    print('Target:', tar_domain, Xt.shape, Yt.shape)
+    coral = CORAL()
+    acc, ypre = coral.fit_predict(Xs, Ys, Xt, Yt)
+    print(acc)
