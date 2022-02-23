@@ -123,11 +123,7 @@ if __name__ == '__main__':
         src_domain, tar_domain, args.data)
     model = models.TransferNet(
         args.n_class, transfer_loss=args.trans_loss, base_net=args.model).to(DEVICE)
-    optimizer = torch.optim.SGD([
-        {'params': model.base_network.parameters()},
-        {'params': model.bottleneck_layer.parameters(), 'lr': 10 * args.lr},
-        {'params': model.classifier_layer.parameters(), 'lr': 10 * args.lr},
-    ], lr=args.lr, momentum=args.momentum, weight_decay=args.decay)
+    optimizer = model.get_optimizer(args)
 
     train(source_loader, target_train_loader,
           target_test_loader, model, optimizer)

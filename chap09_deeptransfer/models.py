@@ -4,6 +4,7 @@ import backbone
 from coral import CORAL
 from mmd import MMDLoss
 from lmmd import LMMDLoss
+from adv import AdversarialLoss
 
 
 class TransferNet(nn.Module):
@@ -12,6 +13,7 @@ class TransferNet(nn.Module):
         self.base_network = backbone.network_dict[base_net]()
         self.use_bottleneck = use_bottleneck
         self.transfer_loss = transfer_loss
+
         bottleneck_list = [nn.Linear(self.base_network.output_num(
         ), bottleneck_width), nn.BatchNorm1d(bottleneck_width), nn.ReLU(), nn.Dropout(0.5)]
         self.bottleneck_layer = nn.Sequential(*bottleneck_list)
@@ -24,6 +26,8 @@ class TransferNet(nn.Module):
         for i in range(2):
             self.classifier_layer[i * 3].weight.data.normal_(0, 0.01)
             self.classifier_layer[i * 3].bias.data.fill_(0.0)
+        if self.transfer_loss == 'dann':
+            self.adv = AdversarialLoss()
 
     def forward(self, source, target, source_label):
         source = self.base_network(source)
@@ -65,6 +69,19 @@ class TransferNet(nn.Module):
         elif adapt_loss == 'dsan':
             loss = LMMDLoss(args.n_class)(
                 X, Y, kwargs['source_label'], kwargs['target_logits'])
+        elif adapt_loss == 'dann':
+            loss = self.adv(X, Y)
         else:
             loss = 0
         return loss
+
+    def get_optimizer(self, args):
+        params = [
+        {'params': self.base_network.parameters()},
+        {'params': self.bottleneck_layer.parameters(), 'lr': 10 * args.lr},
+        {'params': self.classifier_layer.parameters(), 'lr': 10 * args.lr},
+        ]
+        if self.transfer_loss == 'dann':
+            params.append({'params': self.adv.domain_classifier.parameters(), 'lr': 10 * args.lr})
+        optimizer = torch.optim.SGD(params, lr=args.lr, momentum=args.momentum, weight_decay=args.decay)
+        return optimizer
