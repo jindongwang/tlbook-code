@@ -13,7 +13,7 @@ class TransferNet(nn.Module):
         self.base_network = backbone.network_dict[base_net]()
         self.use_bottleneck = use_bottleneck
         self.transfer_loss = transfer_loss
-
+        self.n_class = num_class
         bottleneck_list = [nn.Linear(self.base_network.output_num(
         ), bottleneck_width), nn.BatchNorm1d(bottleneck_width), nn.ReLU(), nn.Dropout(0.5)]
         self.bottleneck_layer = nn.Sequential(*bottleneck_list)
@@ -57,17 +57,17 @@ class TransferNet(nn.Module):
         Arguments:
             X {tensor} -- source matrix
             Y {tensor} -- target matrix
-            adapt_loss {string} -- loss type, 'mmd' or 'coral'. You can add your own loss
+            adapt_loss {string} -- loss type: 'mmd' | 'coral' | 'dsan' | 'dann'
 
         Returns:
             [tensor] -- adaptation loss tensor
         """
         if adapt_loss == 'mmd':
-            loss = MMDLoss(X, Y)
+            loss = MMDLoss()(X, Y)
         elif adapt_loss == 'coral':
             loss = CORAL(X, Y)
         elif adapt_loss == 'dsan':
-            loss = LMMDLoss(args.n_class)(
+            loss = LMMDLoss(self.n_class)(
                 X, Y, kwargs['source_label'], kwargs['target_logits'])
         elif adapt_loss == 'dann':
             loss = self.adv(X, Y)
@@ -77,11 +77,13 @@ class TransferNet(nn.Module):
 
     def get_optimizer(self, args):
         params = [
-        {'params': self.base_network.parameters()},
-        {'params': self.bottleneck_layer.parameters(), 'lr': 10 * args.lr},
-        {'params': self.classifier_layer.parameters(), 'lr': 10 * args.lr},
+            {'params': self.base_network.parameters()},
+            {'params': self.bottleneck_layer.parameters(), 'lr': 10 * args.lr},
+            {'params': self.classifier_layer.parameters(), 'lr': 10 * args.lr},
         ]
         if self.transfer_loss == 'dann':
-            params.append({'params': self.adv.domain_classifier.parameters(), 'lr': 10 * args.lr})
-        optimizer = torch.optim.SGD(params, lr=args.lr, momentum=args.momentum, weight_decay=args.decay)
+            params.append(
+                {'params': self.adv.domain_classifier.parameters(), 'lr': 10 * args.lr})
+        optimizer = torch.optim.SGD(
+            params, lr=args.lr, momentum=args.momentum, weight_decay=args.decay)
         return optimizer
