@@ -10,11 +10,6 @@ import os
 import sklearn.metrics
 from sklearn.neighbors import KNeighborsClassifier
 
-def load_data(folder, domain):
-    from scipy import io
-    data = io.loadmat(os.path.join(folder, domain + '_fc6.mat'))
-    return data['fts'], data['labels']
-
 
 def load_csv(folder, src_domain, tar_domain):
     data_s = np.loadtxt(f'{folder}/amazon_{src_domain}.csv', delimiter=',')
@@ -23,20 +18,24 @@ def load_csv(folder, src_domain, tar_domain):
     Xt, Yt = data_t[:, :-1], data_t[:, -1]
     return Xs, Ys, Xt, Yt
 
+
 def kernel(ker, X1, X2, gamma):
     K = None
     if not ker or ker == 'primal':
         K = X1
     elif ker == 'linear':
         if X2 is not None:
-            K = sklearn.metrics.pairwise.linear_kernel(np.asarray(X1).T, np.asarray(X2).T)
+            K = sklearn.metrics.pairwise.linear_kernel(
+                np.asarray(X1).T, np.asarray(X2).T)
         else:
             K = sklearn.metrics.pairwise.linear_kernel(np.asarray(X1).T)
     elif ker == 'rbf':
         if X2 is not None:
-            K = sklearn.metrics.pairwise.rbf_kernel(np.asarray(X1).T, np.asarray(X2).T, gamma)
+            K = sklearn.metrics.pairwise.rbf_kernel(
+                np.asarray(X1).T, np.asarray(X2).T, gamma)
         else:
-            K = sklearn.metrics.pairwise.rbf_kernel(np.asarray(X1).T, None, gamma)
+            K = sklearn.metrics.pairwise.rbf_kernel(
+                np.asarray(X1).T, None, gamma)
     return K
 
 
@@ -97,22 +96,7 @@ class TCA:
         return acc, y_pred
 
 
-# if __name__ == '__main__':
-#     folder = '../../office31'
-#     src_domain = 'amazon'
-#     tar_domain = 'webcam'
-#     Xs, Ys = load_data(folder, src_domain)
-#     Xt, Yt = load_data(folder, tar_domain)
-#     print('Source:', src_domain, Xs.shape, Ys.shape)
-#     print('Target:', tar_domain, Xt.shape, Yt.shape)
-#     tca = TCA(kernel_type='linear', dim=30, lamb=1, gamma=1)
-#     acc, ypre = tca.fit_predict(Xs, Ys, Xt, Yt)
-#     print(acc)
-#     # It should print 0.910828025477707
-
-
 if __name__ == "__main__":
-    # download the dataset here: https://www.jianguoyun.com/p/DcNAUg0QmN7PCBiF9asD (Password: qqLA7D)
     folder = '../../office31_resnet50'
     src_domain = 'amazon'
     tar_domain = 'webcam'
@@ -122,4 +106,4 @@ if __name__ == "__main__":
 
     tca = TCA(kernel_type='primal', dim=40, lamb=0.1, gamma=1)
     acc, ypre = tca.fit_predict(Xs, Ys, Xt, Yt)
-    print(acc)
+    print(f'Accuracy : {acc:.2f}')
