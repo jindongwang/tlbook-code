@@ -1,13 +1,13 @@
-# Transfer Component Analysis
+# TCA (Transfer Component Analysis)
 
-This is the implementation of Transfer Component Analysis (TCA) in Python and Matlab.
+Use TCA to perform transfer learning.
 
-Remark: The core of TCA is a generalized eigendecompsition problem. In Matlab, it can be solved by calling `eigs()` function. In Python, the implementation `scipy.linalg.eig()` function can do the same thing. However, they are a bit different. So the results may be different.
+## Usage
 
-The test dataset can be downloaded [HERE](https://github.com/jindongwang/transferlearning/tree/master/data).
+Download the dataset as described [here](../README.md).
 
-The python file can be used directly, while the matlab code just contains the core function of TCA. To use the matlab code, you need to learn from the code of [BDA](https://github.com/jindongwang/transferlearning/tree/master/code/BDA) and set out the parameters.
+Then, run `python tca.py` in your terminal or just run this file.
 
-**Reference**
+## Results
 
-Pan S J, Tsang I W, Kwok J T, et al. Domain adaptation via transfer component analysis[J]. IEEE Transactions on Neural Networks, 2011, 22(2): 199-210.
+You will get the accuracy of amawon to webcam as 76.10%. Note: TCA program may be very slow due to computation of kernels.
