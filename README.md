@@ -19,3 +19,26 @@ The following is a basic environment to run most experiments. No special tricky 
 - scipy
 - torch
 - torchvision
+
+## Citation
+
+If you find the code or the book helpful, please consider citing our book as:
+
+```@book{tlbook,
+ author = {Wang, Jindong and Chen, Yiqiang},
+ title = {Introduction to Transfer Learning},
+ year = {2021},
+ url = {jd92.wang/tlbook}
+}
+
+@book{tlbookchinese,
+ author = {王晋东 and 陈益强},
+ title = {迁移学习导论},
+ year = {2021},
+ url = {jd92.wang/tlbook}
+}
+```
+
+## Recommended Repo
+
+My unified transfer learning repo (and **the most popular** transfer learning repo on Github) has everything you need for transfer learning: https://github.com/jindongwang/transferlearning. Including: Papers, codes, datasets, benchmarks, applications etc. 
