@@ -86,8 +86,6 @@ def train(source_loader, target_train_loader, target_test_loader, model, optimiz
             [e, train_loss_clf.avg, train_loss_transfer.avg, train_loss_total.avg, acc.cpu().numpy()])
         pd.DataFrame.from_dict(log).to_csv('train_log.csv', header=[
             'Epoch', 'Cls_loss', 'Transfer_loss', 'Total_loss', 'Tar_acc'])
-        # np_log = np.array(log, dtype=float)
-        # np.savetxt('train_log.csv', np_log, delimiter=',', fmt='%.6f')
         print(f'Epoch: [{e:2d}/{args.n_epoch}], cls_loss: {train_loss_clf.avg:.4f}, transfer_loss: {train_loss_transfer.avg:.4f}, total_Loss: {train_loss_total.avg:.4f}, acc: {acc:.4f}')
         if best_acc < acc:
             best_acc = acc
