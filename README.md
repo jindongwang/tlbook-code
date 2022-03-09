@@ -2,6 +2,8 @@
 
 This folder contains the codes for the book [Introduction to Transfer Learning: Algorithms and Practice](http://jd92.wang/tlbook). [迁移学习导论](http://jd92.wang/tlbook).
 
+Links for the Chinese book (2nd edition) can be found at: [`lind.md`](./links.md).
+
 ## Dataset
 
 1. For algorithm chapters (chapters 1 ~ 11), we mainly use Office-31 dataset, download [HERE](https://github.com/jindongwang/transferlearning/tree/master/data#office-31):

@@ -87,7 +87,7 @@ def get_transform(train):
 
 def get_model_detection(n_class, pretrain=True):
     from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
-    # load a model pre-trained on COCO
+    # load a pre-trained model
     model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=pretrain)
     num_classes = n_class
     in_features = model.roi_heads.box_predictor.cls_score.in_features
