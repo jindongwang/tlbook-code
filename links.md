@@ -11,37 +11,36 @@
 
 - 链接1-1：这些免费图像来源: https://pixabay.com/zh/
 - 链接1-2：新华社新闻：迁移学习是中国人工智能赶超的机会：http://www.xinhuanet.com/mrdx/2016-09/02/c_135653890.htm
-- 链接1-3：https://github.com/jindongwang/transferlearning/blob/master/doc/transfer_learning_application.md
-- 链接1-4：https://icml.cc/
-- 链接1-5：https://neurips.cc/
-- 链接1-6：https://iclr.cc/
-- 链接1-7：美国DARPA迁移学习计划--认知和将之前学过的知识应用于新任务的能力：http://logic.stanford.edu/tl/TransferLearningPIP.pdf
-- 链接1-8：ICML-06研讨会—结构知识迁移：http://orca.st.usm.edu/~banerjee/icmlws06/
-- 链接1-9：AAAI-08研讨会—对于复杂任务的迁移学习：https://eecs.wsu.edu/~taylorm/AAAI08TL/index.htm
-- 链接1-10：ICML-11研讨会—无监督和迁移学习：http://clopinet.com/isabelle/Projects/ICML2011/home.html
-- 链接1-11：IJCNN-11挑战赛—无监督和迁移学习：http://www.causality.inf.ethz.ch/unsupervised-learning.php
-- 链接1-12：NIPS-13研讨会—迁移学习和多任务学习的新方向：https://sites.google.com/site/learningacross/
-- 链接1-13：ICCV和ECCV的迁移学习比赛2017：http://adas.cvc.uab.es/task-cv2017/
-- 链接1-14：ICCV和ECCV的迁移学习比赛2019：https://sites.google.com/view/task-cv2019/home
-- 链接1-15：ICLR-19研讨会—从有限的标注数据中学习：https://lld-workshop.github.io/
-- 链接1-16：香港科技大学杨强教授团队利用迁移学习技术获得了ICDM室内定位大赛一等奖：
+- 链接1-3：https://icml.cc/
+- 链接1-4：https://neurips.cc/
+- 链接1-5：https://iclr.cc/
+- 链接1-6：美国DARPA迁移学习计划--认知和将之前学过的知识应用于新任务的能力：http://logic.stanford.edu/tl/TransferLearningPIP.pdf
+- 链接1-7：ICML-06研讨会—结构知识迁移：http://orca.st.usm.edu/~banerjee/icmlws06/
+- 链接1-8：AAAI-08研讨会—对于复杂任务的迁移学习：https://eecs.wsu.edu/~taylorm/AAAI08TL/index.htm
+- 链接1-9：ICML-11研讨会—无监督和迁移学习：http://clopinet.com/isabelle/Projects/ICML2011/home.html
+- 链接1-10：IJCNN-11挑战赛—无监督和迁移学习：http://www.causality.inf.ethz.ch/unsupervised-learning.php
+- 链接1-11：NIPS-13研讨会—迁移学习和多任务学习的新方向：https://sites.google.com/site/learningacross/
+- 链接1-12：ICCV和ECCV的迁移学习比赛2017：http://adas.cvc.uab.es/task-cv2017/
+- 链接1-13：ICCV和ECCV的迁移学习比赛2019：https://sites.google.com/view/task-cv2019/home
+- 链接1-14：ICLR-19研讨会—从有限的标注数据中学习：https://lld-workshop.github.io/
+- 链接1-15：香港科技大学杨强教授团队利用迁移学习技术获得了ICDM室内定位大赛一等奖：
 https://www.kdnuggets.com/news/2007/n15/7i.html
-- 链接1-17：IJCAI-18广告挑战赛冠军方案：https://zhuanlan.zhihu.com/p/40631601
-- 链接1-18：ACL-19开幕演讲：https://www.msra.cn/zh-cn/news/features/acl-2019-ming-zhou
-- 链接1-19：“好信杯”大数据算法大赛：http://3g.donews.com/News/donews_detail/2955859.html
-- 链接1-20：平安科技医疗科技疾病问答迁移学习比赛：
+- 链接1-16：IJCAI-18广告挑战赛冠军方案：https://zhuanlan.zhihu.com/p/40631601
+- 链接1-17：ACL-19开幕演讲：https://www.msra.cn/zh-cn/news/features/acl-2019-ming-zhou
+- 链接1-18：“好信杯”大数据算法大赛：http://3g.donews.com/News/donews_detail/2955859.html
+- 链接1-19：平安科技医疗科技疾病问答迁移学习比赛：
 https://www.kesci.com/home/dataset/5e4d4e198d3880002da45af7
-- 链接1-21：2020年微软研究团队使用仿真环境到真实环境中的迁移学习，训练现实世界中的无人机：
+- 链接1-20：2020年微软研究团队使用仿真环境到真实环境中的迁移学习，训练现实世界中的无人机：
 https://tech.sina.cn/2020-03-26/detail-iimxyqwa3399986.d.html
-- 链接1-22：2020年微软发布了史上最大的基于预训练的自然语言处理模型Turing-NLG：
+- 链接1-21：2020年微软发布了史上最大的基于预训练的自然语言处理模型Turing-NLG：
 https://cloud.tencent.com/developer/article/1586451
-- 链接1-23：2020年OpenAI启动了一项强化迁移学习的 “刺猬索尼克”游戏比赛：
+- 链接1-22：2020年OpenAI启动了一项强化迁移学习的 “刺猬索尼克”游戏比赛：
 https://www.leiphone.com/news/201804/vKH66rt5xW0dycQL.html
-- 链接1-24：NVIDIA发布迁移学习工具包：https://www.leiphone.com/news/201812/Cy3HiAmUh6J7P3gB.html
-- 链接1-25：阿里巴巴利用迁移学习和元学习为其小样本数据的学习和系统安全保驾护航：
+- 链接1-23：NVIDIA发布迁移学习工具包：https://www.leiphone.com/news/201812/Cy3HiAmUh6J7P3gB.html
+- 链接1-24：阿里巴巴利用迁移学习和元学习为其小样本数据的学习和系统安全保驾护航：
 https://www.jiqizhixin.com/articles/2019-12-10-7
-- 链接1-26：亚马逊的语音助手Alexa则利用迁移学习使其迅速学会第二门语言：https://zhidx.com/p/144766.html
-
+- 链接1-25：亚马逊的语音助手Alexa则利用迁移学习使其迅速学会第二门语言：https://zhidx.com/p/144766.html
+- 链接1-26：https://github.com/jindongwang/transferlearning/blob/master/doc/transfer_learning_application.md
 
 ## 第2章
 
