@@ -26,7 +26,8 @@ The following is a basic environment to run most experiments. No special tricky 
 
 If you find the code or the book helpful, please consider citing our book as:
 
-```@book{tlbook,
+```
+@book{tlbook,
  author = {Wang, Jindong and Chen, Yiqiang},
  title = {Introduction to Transfer Learning},
  year = {2021},
