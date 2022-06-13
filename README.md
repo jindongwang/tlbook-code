@@ -2,7 +2,7 @@
 
 This folder contains the codes for the book [Introduction to Transfer Learning: Algorithms and Practice](http://jd92.wang/tlbook). [迁移学习导论](http://jd92.wang/tlbook).
 
-Links for the Chinese book (2nd edition) can be found at: [`links.md`](./links.md).
+Links for the Chinese book (2nd edition) can be found at: [`links.md`](./links.md). 中文第二版书中的链接请见[这里](./links.md)。
 
 ## Dataset
 
