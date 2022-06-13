@@ -1,4 +1,4 @@
-# tlbook-code
+# Code for 'Introduction to transfer learning' book 《迁移学习导论》(第二版)代码
 
 This folder contains the codes for the book [Introduction to Transfer Learning: Algorithms and Practice](http://jd92.wang/tlbook). [迁移学习导论](http://jd92.wang/tlbook).
 
