@@ -42,8 +42,8 @@ def load_model(name='alexnet'):
         n_features = model.fc.in_features
         fc = torch.nn.Linear(n_features, args.n_class)
         model.fc = fc
-    model.fc.weight.data.normal_(0, 0.005)
-    model.fc.bias.data.fill_(0.1)
+        model.fc.weight.data.normal_(0, 0.005)
+        model.fc.bias.data.fill_(0.1)
     return model
 
 
