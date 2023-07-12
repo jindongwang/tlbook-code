@@ -29,9 +29,10 @@ If you find the code or the book helpful, please consider citing our book as:
 ```
 @book{tlbook,
  author = {Wang, Jindong and Chen, Yiqiang},
- title = {Introduction to Transfer Learning},
- year = {2021},
- url = {jd92.wang/tlbook}
+ title = {Introduction to Transfer Learning: Algorithms and Practice},
+ year = {2023},
+ url = {jd92.wang/tlbook},
+ publisher = {Springer Nature}
 }
 
 @book{tlbookchinese,
